@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+const int MAX = 2e6 + 10;
+const int mod = 1e9 + 7;
+
+int dp[MAX];
+
+int32_t main() {
+    ios::sync_with_stdio(0); 
+    cin.tie(nullptr);
+
+    int n, x;
+    cin >> n >> x;
+    vector<int> coins(n);
+    for (auto& c : coins) cin >> c;
+
+    dp[0] = 1;
+    for (int i = 0; i <= x; i++) {
+        for (auto c : coins) {
+            dp[i+c] += dp[i];
+            dp[i+c] %= mod;
+        }
+    }
+
+    cout << dp[x] << endl;
+
+    return 0; 
+}
+

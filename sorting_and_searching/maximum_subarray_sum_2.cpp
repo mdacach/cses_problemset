@@ -13,13 +13,19 @@ int32_t main() {
     for (int i = 1; i <= n; i++) cin >> vec[i];
     vector<int64_t> p(n+1);
     for (int i = 1; i <= n; i++) p[i] = p[i-1] + vec[i];
+    //cout << "pref: ";
+    //for (int i = 0; i <= n; i++) cout << p[i] << " ";
+    //cout << endl;
     multiset<int64_t> s;
-    for (int i = 0; i < a; i++) s.insert(p[i]);
-    int64_t ans = 0;
+    int64_t ans = -1e18;
     for (int i = a; i <= n; i++) {
+        //cout << "pra i = " << i << " set: ";
+        s.insert(p[i-a]);
+        //for (auto x : s) cout << x << " ";
+        //cout << endl;
         ans = max(ans, p[i] - *s.begin());
-        s.erase(s.find(p[i - a]));
-        s.insert(p[i]);
+        //cout << "ans aqui = " << p[i] - *s.begin() << endl;
+        if (i - b >= 0) s.erase(s.find(p[i-b]));
     }
     cout << ans << endl;
 
